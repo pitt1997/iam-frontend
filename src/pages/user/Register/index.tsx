@@ -124,16 +124,16 @@ const Register: React.FC = () => {
                 ]}
               />
               <ProFormText
-                name="planetCode"
+                name="mobile"
                 fieldProps={{
                   size: 'large',
                   prefix: <UserOutlined className={styles.prefixIcon} />,
                 }}
-                placeholder={'请输入星球编号'}
+                placeholder={'请输入手机号码'}
                 rules={[
                   {
                     required: true,
-                    message: '星球编号是必填项！',
+                    message: '手机号码是必填项！',
                   },
                 ]}
               />
