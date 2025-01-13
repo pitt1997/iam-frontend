@@ -47,7 +47,7 @@ const Register: React.FC = () => {
       <div className={styles.content}>
         <LoginForm
           logo={<img alt="logo" src={SYSTEM_LOGO} />}
-          title="编程导航知识星球"
+          title="IAM"
           submitter={{
             searchConfig: {
               submitText: '注册'

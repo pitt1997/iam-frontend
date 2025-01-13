@@ -11,7 +11,7 @@ const Footer: React.FC = () => {
       links={[
         {
           key: 'planet',
-          title: '知识星球',
+          title: 'IAM',
           href: PLANET_LINK,
           blankTarget: true,
         },
@@ -23,8 +23,8 @@ const Footer: React.FC = () => {
         },
         {
           key: 'codeNav',
-          title: '编程导航',
-          href: 'https://www.code-nav.cn',
+          title: 'pitt1997',
+          href: 'https://github.com/pitt1997',
           blankTarget: true,
         },
       ]}

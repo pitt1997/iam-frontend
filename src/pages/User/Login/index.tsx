@@ -4,6 +4,9 @@ import {
   MobileOutlined,
   TaobaoCircleOutlined,
   UserOutlined,
+  AppstoreOutlined,
+  PlusCircleOutlined,
+  KeyOutlined,
   WeiboCircleOutlined,
 } from '@ant-design/icons';
 import {Alert, Button, Divider, message, Space, Tabs} from 'antd';
@@ -78,11 +81,11 @@ const Login: React.FC = () => {
       <div className={styles.content}>
         <LoginForm
           logo={<img alt="logo" src={SYSTEM_LOGO} />}
-          title="编程导航知识星球"
+          title="IAM"
           subTitle={
             <p>
               <a href={PLANET_LINK} target="_blank" rel="noreferrer">
-                最好的编程学习知识圈子
+                构建高效的IAM平台
               </a>
 
             </p>
