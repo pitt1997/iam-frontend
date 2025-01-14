@@ -52,6 +52,17 @@ export async function searchUser(options?: { [key: string]: any }) {
   });
 }
 
+export async function pageUser(
+  params: { current?: number; pageSize?: number; keyword?: string },
+  options?: { [key: string]: any },
+) {
+  return request<API.BaseResponse<API.PageResult<API.CurrentUser>>>('/api/user/page', {
+    method: 'GET',
+    params, // 将分页参数传递到后端
+    ...(options || {}),
+  });
+}
+
 /** 此处后端没有提供注释 GET /api/notices */
 export async function getNotices(options?: { [key: string]: any }) {
   return request<API.NoticeIconList>('/api/notices', {

@@ -49,4 +49,9 @@ declare namespace API {
     type?: string;
     message?: string;
   };
+
+  interface PageResult<T> {
+    data: T[];       // 当前页的数据
+    total: number;   // 总记录数
+  }
 }

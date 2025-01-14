@@ -4,7 +4,7 @@ import { ProTable, TableDropdown } from '@ant-design/pro-components';
 import {Button, Dropdown, Image, Menu, Space, Tag} from 'antd';
 import React, { useRef } from 'react';
 import request from 'umi-request';
-import {searchUser} from "@/services/ant-design-pro/api";
+import {searchUser, pageUser} from "@/services/ant-design-pro/api";
 
 const columns: ProColumns<API.CurrentUser>[] = [
   {
@@ -14,14 +14,14 @@ const columns: ProColumns<API.CurrentUser>[] = [
   },
   {
     title: '用户名',
-    dataIndex: 'username',
+    dataIndex: 'name',
     copyable: true,
     ellipsis: true,
     tip: '标题过长会自动收缩',
   },
   {
-    title: '用户账户',
-    dataIndex: 'userAccount',
+    title: '中文姓名',
+    dataIndex: 'cnName',
     copyable: true,
   },
   {
@@ -51,7 +51,7 @@ const columns: ProColumns<API.CurrentUser>[] = [
   },
   {
     title: '状态',
-    dataIndex: 'userStatus',
+    dataIndex: 'status',
     copyable: true,
   },
   {
@@ -132,11 +132,23 @@ export default () => {
       actionRef={actionRef}
       cardBordered
       request={async (params = {}, sort, filter) => {
-        console.log(sort, filter);
-        const userList = await searchUser();
+        console.log('分页参数:', params);
+        console.log('排序:', sort, '筛选:', filter);
+
+        // 从后端接口请求分页数据
+        const result = await pageUser({
+          // page: params.current, // 适配mybatis-plus默认第一页从0开始
+          page: params.current ? params.current - 1 : 0, // 前端页码从 1 减 1 传给后端
+          size: params.pageSize, // 每页条数
+          //...params, // 其他查询参数
+        });
+
+        // 假设后端返回数据结构为 { data: [], total: number }
         return {
-          data : userList
-        }
+          data: result.data, // 当前页数据
+          success: true, // 请求成功标志
+          total: result.total, // 总数据条数
+        };
       }}
       editable={{
         type: 'multiple',
@@ -145,7 +157,7 @@ export default () => {
         persistenceKey: 'pro-table-singe-demos',
         persistenceType: 'localStorage',
         onChange(value) {
-          console.log('value: ', value);
+          console.log('列状态更改:', value);
         },
       }}
       rowKey="id"
@@ -165,8 +177,13 @@ export default () => {
         },
       }}
       pagination={{
-        pageSize: 5,
-        onChange: (page) => console.log(page),
+        pageSize: 10, // 默认每页显示条数
+        showSizeChanger: true, // 启用分页大小切换器
+        pageSizeOptions: ['10', '20', '50', '100'], // 可选分页大小
+        onChange: (page, pageSize) => {
+          console.log(`当前页: ${page}, 每页条数: ${pageSize}`)
+          // actionRef.current?.reload();
+        },
       }}
       dateFormatter="string"
       headerTitle="高级表格"
